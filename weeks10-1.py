@@ -44,5 +44,12 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=10)
 
 history = model.fit(train_images, train_labels, validation_data=(test_images, test_labels), epochs=30, batch_size=200, verbose=0, callbacks=[checkpointer, early_stopping])
 
-print("end")
+test_eval = model.evaluate(test_images, test_labels)
+print("Test Accuracy : %.4f" % test_eval)
+test_predict = model.predict(test_images)
+
+for i in range(10):
+    print("Actual class: %d => Expect Class: %d" % (test_labels[i], test_predict[i]))
+
+    
 
